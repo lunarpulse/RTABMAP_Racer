@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+
+\bibitem{Thrun2002}
+S.~Thrun, ``{Probabilistic robotics},'' {\em Communications of the ACM}, 2002.
+
+\bibitem{Fox2001}
+D.~Fox, ``{KLD-sampling: Adaptive particle filters and mobile robot
+  localization},'' {\em Advances in Neural Information Processing Systems},
+  2001.
+
+\end{thebibliography}

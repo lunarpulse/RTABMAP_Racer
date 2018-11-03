@@ -1,0 +1,558 @@
+# Write a message for tag:CKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+\usepackage{listings}
+\usepackage{color}
+	
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+	
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+	
+\lstset{style=mystyle}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\normalfont \scshape} % Make all sections centered \centering, the default font and small caps
+\usepackage{csquotes}
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{subcaption}
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Udacity, Robotics Nano Degree} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Follow Me \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Myoungki Jung} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+\section{Rubrics}
+
+\begin{enumerate}
+	\item Provide a write-up / README document including all rubric items addressed in a clear and concise manner. The document can be submitted either in either Markdown or a PDF format.
+	\begin{itemize} %0
+	  \item You are reading the documentation.
+	  \item Section~\ref{rubric01}
+	\end{itemize}
+	\item The write-up conveys the an understanding of the network architecture. 
+	\begin{itemize} %1
+		\item FCN (\ref{rubric10})
+		\item Encoder (\ref{rubric11})
+		\item Decoder (\ref{rubric12})
+
+	\end{itemize}
+	\item The write-up conveys the student's understanding of the parameters chosen for the the neural network.  
+	\begin{itemize} %2
+		\item General parameter selection (\ref{rubric20})
+		\item run 0 to 2 (\ref{rubritional networks and this cannot be used in our application as the netwrableConv2DKeras' to reduce the dimensions and to prepare for connections to following seperable convolution layers.
+
+\begin{lstlisting}[language=Python, caption=Fully convolutional network code]
+	def fcn_model(inputs, num_classes):
+
+		filter= 32
+		
+		encoded_0 = encoder_block(inputs, filter, 2)
+		encoded_0 = conv2d_batchnorm(encoded_0, filter, kernel_size=1, strides=1)
+
+		encoded_1 = encoder_block(encoded_0, filter*2, 2)
+		encoded_1 = conv2d_batchnorm(encoded_1, filter*2, kernel_size=1, strides=1)
+		encoded_1 = conv2d_batchnorm(encoded_1, filter*2, kernel_size=1, strides=1)
+
+		encoded_2 = encoder_block(encoded_1, filter*2*2, 2)
+		encoded_2 = conv2d_batchnorm(encoded_2, filter*2*2, kernel_size=1, strides=1)
+		encoded_2 = conv2d_batchnorm(encoded_2, filter*2*2, kernel_size=1, strides=1)
+
+		encoded_3 = encoder_block(encoded_2, filter*2*2*2, 2)
+		encoded_3 = conv2d_batchnorm(encoded_3, filter*2*2*2, kernel_size=1, strides=1)
+		encoded_3 = conv2d_batchnorm(encoded_3, filter*2*2*2, kernel_size=1, strides=1)
+
+		oneToOne = conv2d_batchnorm(encoded_3, filter*2*2*2, kernel_size=1, strides=1)
+		
+		decoded_0 = decoder_block(oneToOne, encoded_2, filter*2*2*2)
+		decoded_1 = decoder_block(decoded_0, encoded_1, filter*2*2)
+		decoded_2 = decoder_block(decoded_1, encoded_0, filter*2)
+		decoded = decoder_block(decoded_2, inputs, filter)
+    
+    return layers.Conv2D(num_classes, 1, activation='softmax', padding='same')(decoded)
+\end{lstlisting}
+
+The function conv2d\_batchnorm was applied after each encoder block to facilitate convergence of model by making the weights more normalised.
+
+%-----------------------------------------------------------
+\pagebreak
+\section{Training}
+Training is all about how to lead the model to the global minima of loss. The models were trained to the point where the slope of loss is less than 0.00001, assuming the model had arrived to a local minima of loss function. With trained model, the performance of model was gauges with the intersection over union rating (IoU) as noted by instruction of the project manual.
+\paragraph{Preparation}
+Installing tensorflow from source code was an essential part before using tensorflow to improve the efficiency and utilisation of GPU and CPU as the precompiled version did not optimised for each computer and ommitted many CPU and GPU instruction features like MMX, SSE\@. This instruction was well documented in \href{http://www.tensorflow.org/install/install_sources}{Tensorflow.org}. After installation of the wheel installation package, optimised for the local machine, follow the project instruction provided by Udacity to download and isntall dependency packages for python.
+\paragraph{Parameters}\label{rubric20}
+The parameters used to tune the network and comments for them are shown below.
+\begin{enumerate}
+	\item Filter size: 32. this filter size is relatively small to easily process on my GPU.
+	\item Num of Epoch: the bigger epoch number, the more iteration of training for the neural network - this value was set as high as possible, more than 20.	
+	\item Learning Rate: learning rate controls how stably converge to the minima of loss function, by experimenting 0.0005 was reasonable for this network. If more epoch are available, this value can be decreased futher by magnitute. Although it would take longer time to train, the weights of neural networks will be finely tuned as the smaller learning rate can help optimiser to converge to the minima. Therefore, this value can be decreased when the neural network is about to converge after multiple training sessions.
+	\item Batch Size: batch size was constrained by the specification of the local machine. The size of VRAM of my GTX960 could not allocate massive memory blocks, which created by batch size higher than 32, especially for this 7 layer network. Smaller batch size will allocate/ disallocate memory blocks more frequently than the higher ones and, consequently, add more training time for that memory operations. A mini batch setting with 8 or 16 enabled my GPU process the neural network on a local machine. In addition, the lessons in udacity re
+	\item steps per epoch: due to the randomisation in training data, providing the entire data set is not neccessary. The randomisation fosters a balanced training compared with sweeping entire batch because such method provides higher possibility to develop the weights.
+	\item validation steps: the number of iteration to complete a validation. The more validation, better reliability of the validation, this needs to be more than 32 to get a proper statistical mean.
+\end{enumerate}
+
+\subsection{Run 0 to 2.6}\label{rubric21}
+Table~\ref{tab:parameters2} shows the hyper parameters and results of each run. A notable one is that run 2.3 is the split point for experiment of using more collected data (run2.4: \href{run:./JupyterNotebooks/modeltrainingedit24.html}{modeltrainingedit24.html} ) and (run2.5:\href{run:./JupyterNotebooks/modeltrainingedit25.html}{modeltrainingedit25.html}).
+The major parameter in this table is the learning rate which is the most sensitive factor to decide the final convergence of weight after iterations of trining. Other parameters related to the training sample batch size and training steps in an epoch merely decides the model.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{ l | c | c | c | c | c | c | c| c }
+		\hline
+		parameter & run0 & run1 & run2.1 & run2.2 & run2.3 & run2.4 & run 2.5 & run2.6\\ \hline
+		learning rate & 0.001 & 0.0005 & 0.0005 & 0.0005 & 0.0005 & 0.0005& 0.00025& 0.0005\\ \hline
+		batch size    & 8 & 8 & 8 & 8 & 8 & 8  & 8 & 8\\ \hline
+		num of epoch  & 50 & 25 & 10  &  10 &  10 & 100 & 20 & 20\\ \hline
+		accumulated trained epoch & 50 & 75 & 85 & 95  & 105 & 205 & 125 & 125\\ \hline
+		steps per epoch & 32 & 64 & 512 & 32 & 32 & 32 & 64 & 32\\ \hline
+		validation steps & 16 & 32 & 256 & 16 & 16 & 16 & 32 & 16\\ \hline
+		workers & 2 & 2 & 2 & 2 & 2 & 4 & 4 & 4 \\ \hline
+		number of training sets & 4131 & 4131 & 4131 & 4131 & 4131 & 5250 & 4131 & 4131\\ \hline
+		input weights & new & 1 & 1 & 2\_1 & 2\_2  & 2\_3 & 2\_3 & 2\_3\\ \hline
+		output weights & 0 & 1 & 2\_1 & 2\_2 & 2\_3 & 2\_4 & 2\_5 & 2\_6\\
+		\hline \hline
+		iou hero close &0.863 & 0.912 & 0.920 & 0.917 & 0.916 & 0.903 & 0.920 & 0.911\\ \hline	  
+		iou hero distant & 0.084 & 0.157 & 0.141 & 0.180 & 0.239 & 0.181 & 0.165 & 0.217\\ \hline
+		final score & 0.331& 0.391 & 0.387 & 0.411 & 0.432 & 0.405 & 0.401 & 0.407\\
+		\hline
+		\end{tabular}
+		\caption{The parameters and validation results of Run 0 to 2.6}
+		\label{tab:parameters2}
+	\end{center}
+\end{table}
+run 0 to run 2.2 was further training to get a local minima for the training with the same training parameters. The training parameters and environments diverges from run 2.2. Run 2.3 was to train the output weights of 2.2 with more epoch with the same parameter as run 2.2. More collection of data was introduced to run 2.4 and run2.5 was trained the output of run 2.4 with the same parameter as Run 2.4.Run 2.5 is based on the weights of run 2.3 and the only difference is double the size of 'steps of epoch' and 'validation steps' and Run 2.6 is further trained weight of run 2.5.
+\begin{figure}
+   \begin{subfigure}{0.45\textwidth}
+   \includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_3.png} 
+   \caption{Analysis 1 of run2.3}
+   \label{fig:subAnalysisRun23}
+   \end{subfigure}
+   \begin{subfigure}{0.45\textwidth}
+   \includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_3plot.png}
+   \caption{Analysis 2 of run2.3}
+   \label{fig:subAnalysisRun23plot}
+   \end{subfigure}
+	
+   \caption{Analysis for run 2.3}
+   \label{fig:AnalysisRun23}
+\end{figure}
+\paragraph{Run2.3}\label{rubric70}
+The highest score (43\%) in Run 2 series were recorded with Run 2.3 in file~\href{run:../code/model_training.ipynb}{run 2.3 noteboook}. This run had reached a  local minimum of loss function and performs well with the following mode, and with target mode although the with no target mode still records 23 percent.
+
+\begin{figure}	
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_4.png} 
+	\caption{Analysis 1 of run2.4}
+	\label{fig:subAnalysisRun24}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_4plot.png}
+	\caption{Analysis 2 of run2.4}
+	\label{fig:subAnalysisRun24plot}
+	\end{subfigure}
+	 
+	\caption{Analysis for run 2.4}
+	\label{fig:AnalysisRun24}
+ \end{figure}
+ \paragraph{Run2.4}
+ run 2.4 was trained with additional 1 thousand images from the simulator, especially aimed to get the distant hero scenes on high default altitude, and crowds' eye height. However, Run 2.5 added more training with extra epoch and validation steps with a lower learning rate (0.00025) to relieve the oscilation of adam optimiser observed in training runs between 0 to 2.3. run2.4 with new collected data trained for 100 epochs showing seriously many spikes. validation data has different contents and the training data. 
+ A change in used training data set did not affect the performance of neural network positively. Additional 1200 images were collected in simulator specificaly targetting the heroin in distance settings. Run 2.4 included additional 1230 images to train and validate. The final score went down by 27\% due to the changes of neural network weights by the newly introduced dataset. Also, run 2.5 shows a weight corruption with even lower overall performance than run2.4 in both distant and proximity and it needs more training iteration to stablise it. When a data set is injected to the training set, the collection of data must be carefully selected.
+ Run 2.5 with new collected data trained for 20 epochs on learning rate 0.0025 slight changes and some spikes for the same reason. 
+ both are not performing well in IoU tests.
+
+ \paragraph{image manipulation}\label{rubric40}
+A image manipulation script provided by the project repository was used to pre-process the images captured in the simulator to feed into neural network. In this supervised learning scenario, preparation of input for the neural network is essential. The raw simulation data was in jpeg format with rgb colour space, and the neural network needed to feed inputs as the resized images and a mask of the target object, in this case a girl in red outfit.
+\begin{figure}	
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_5.png} 
+	\caption{Analysis 1 of run2.5}
+	\label{fig:subAnalysisRun25}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_5plot.png}
+	\caption{Analysis 2 of run2.5}
+	\label{fig:subAnalysisRun25plot}
+	\end{subfigure}
+	 
+	\caption{Analysis for run 2.5}
+	\label{fig:AnalysisRun25}
+ \end{figure}
+ 
+\begin{figure}	
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_6.png} 
+	\caption{Analysis 1 of run2.6}
+	\label{fig:subAnalysisRun26}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_2_6plot.png}
+	\caption{Analysis 2 of run2.6}
+	\label{fig:subAnalysisRun26plot}
+	\end{subfigure}
+	 
+	\caption{Analysis for run 2.6}
+	\label{fig:AnalysisRun26}
+ \end{figure}
+ \paragraph{Run2.5 and Run2.6}
+ Extra training after arriving at a local minima of loss does not improves the overall performance. The oscillation of optimiser can corrupt a well performing model with extra training. A mechanism to stop the training at the best performing model is required. Figure~\ref{fig:outputimages26} in \ref{appendix} shows the slight deterioration in target reocgnition and slight false positiveness in model weights.
+\subsection{Run 3}
+After observing the effect of additional training data sets at run 2.4 and further training of weights, it was a time for training new model with new learning rate.
+Using lower learning rate, it will be slower to converge to a minima, but it will be lower than the one with higher learning rate.
+\paragraph{Parameters}\label{rubric22}
+\begin{table}
+	\begin{center}
+		\begin{tabular}{ l | c | c }
+		\hline
+		parameter & run3 & run3.1 \\ \hline
+		learning rate & 0.0001 & 0.0001 \\ \hline
+		batch size    & 16 & 8 \\ \hline
+		num of epoch  & 50 & 25 \\ \hline
+		accumulated trained epoch & 50 & 75 \\ \hline
+		steps per epoch & 32 & 64 \\ \hline
+		validation steps & 16 & 32 \\ \hline
+		workers & 2 & 4  \\ \hline
+		number of training sets & 4131 & 4131 \\ \hline
+		input weights & new & 3 \\ \hline
+		output weights & 3 & 3\_1\\ 		
+		\hline \hline
+		iou hero close &0.802 & 0.751 \\ \hline	  
+		iou hero distant & 0.0402 & 0.018 \\ \hline
+		final score & 0.259& 0.252 \\
+		\hline
+		\end{tabular}
+		\caption{The parameters and validation results of Run 3}
+		\label{tab:parameters3}
+	\end{center}
+\end{table}
+
+Table~\ref{tab:parameters3} shows the new parameter sets to induct a lower global minima, instead of stuck in a local minima with higher learning rate. The only difference with run0 is the learning rate of one tenth of that in run 0. 
+With this learning rate, a slower learning rate was observed in Figure~\ref{fig:AnalysisRun3} and it achieved its own local minima to a half of the previous local minima. As can be seen in the file \href{run:./JupyterNotebooks/modeltrainingedit3.html}{modeltrainingedit3.html} and \href{run:./JupyterNotebooks/modeltrainingedit31.html}{modeltrainingedit31.html}, the output of FCN shows much traces random wavy stains (Figure~\ref{fig:outputimages3}), which indicates that the learning rate was too small to overcall the randomised weights after 50 times of epoch. After additional 25 epochs, these wavy stains in the output was removed (Figure~\ref{fig:outputimages31}), but still the overall performance was not as great as the result of run 2.3.
+
+\begin{figure}	
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_3.png} 
+	\caption{Analysis 1 of run3}
+	\label{fig:subAnalysisRun3}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_3plot.png}
+	\caption{Analysis 2 of run3}
+	\label{fig:subAnalysisRun3plot}
+	\end{subfigure}
+	 
+	\caption{Analysis for run3}
+	\label{fig:AnalysisRun3}
+ \end{figure}
+
+\subsection{Run 4}
+
+A new learning rate which is half of run0 to run2 and five times bigger than run 3 was experimented and the hyperparameters are shown Table~\ref{tab:parameters4}. The majority of hyper parameters except learning rate was changed compared to run 3.
+\paragraph{Parameters}\label{rubric23}
+\begin{table}
+	\begin{center}
+		\begin{tabular}{ l | c | c | c }
+		\hline
+		parameter & run4 & run4.1 & run4.2 \\ \hline
+		learning rate & 0.0005 & 0.0005 & 0.0005 \\ \hline
+		batch size    & 16 & 16 & 8\\ \hline
+		num of epoch  & 50 & 20 & 20\\ \hline
+		accumulated trained epoch & 50 & 70 & 90\\ \hline
+		steps per epoch & 32 & 32  & 32\\ \hline
+		validation steps & 16 & 16 & 16\\ \hline
+		workers & 2 & 4 & 4\\ \hline
+		number of training sets & 4131 & 4131 & 4131\\ \hline
+		input weights & new & 4 & 4\_1 \\ \hline
+		output weights & 4 & 4\_1 & 4\_2\\ 		
+		
+		\hline \hline
+		iou hero close & 0.623 & 0.875 & 0.808\\ \hline	  
+		iou hero distant & 0.009 & 0.091 & 0.032\\ \hline
+		final score & 0.202 & 0.318 & 0.275\\
+		\hline
+		\end{tabular}
+		\caption{The parameters and validation results of Run 4}
+		\label{tab:parameters4}
+	\end{center}
+\end{table}
+
+In this run, the convergence to a local minima was faster than Run 3 and more stable than Run 0 to run 2. However the lower loss at 0.025 did not provide an accurate performance, instead it seems to be overfitted to the data. There is a sharp rise in loss at epoch 37 on the log graph for run 3. It does not mean that a weight set before epoch 37 may perform better and objective than the ones after epoch 37 - it could be less trained and the loss spike can be random near the local maxima. This implies the model was well overfitted to a part of the training set and it output a huge loss when it encountered the part of validation set which is totally different from the training set it was heavily overfitted. A dropout is needed to reduce such overfitting.
+Figure~\ref{fig:AnalysisRun4} shows a gradual faster learning curve than run 3 but it is more gradual than run 2. It is notable that a spike in the validation and train loss, which occured after first potential convergence to a local minima. This might be explained that the random sampling of the input was not well dispersed and be trained the neural network with only with biasedly sampled training batches. Figure~\ref{fig:outputimages4} shows much more cleaner output of scene segmentation than using the weights of run 3.
+\begin{figure}	
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_0_4.png} 
+	\caption{Analysis 1 of run4}
+	\label{fig:subAnalysisRun4}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\includegraphics[width=0.9\linewidth, height=5cm]{./imgs/analysis_4plot.png}
+	\caption{Analysis 2 of run4}
+	\label{fig:subAnalysisRun4plot}
+	\end{subfigure}
+	 
+	\caption{Analysis for run4}
+	\label{fig:AnalysisRun4}
+ \end{figure}
+%------------------------------------------------
+\subsection{conclusion}
+The selection of hyper parameter was the most important part. It can take a long time to verify the right parameters and optimise them further. As each training session of a neural network until outputing a meaningful performance takes long time and computatively intensive, parameter matrix method used in the last project to train support vector machine (Figure~\ref{fig:svmTrainMatrix}) is not applicable unless owning a massive computation resource.
+\begin{figure}	
+	\includegraphics[width=0.9\linewidth, height=9cm]{./imgs/indexSVM4500feats.png} 
+	\caption{Analysis for run4}
+	\label{fig:svmTrainMatrix}
+ \end{figure}
+The important take way from the training section is to start from a resonable hyper parameters and infer the effectiveness from the result.
+
+\subsection{Future Enhancements}\label{rubric01}
+
+\paragraph{Different architecture}
+One of my thought based on reviewing the scoring method of this project, the it might be more plausible to have two different streams of FCN to identify hero in distant and close ranges because mostly the model suffers inaccuracy in identification of distant objects. This is because of the single stream architecture FCN is more likely to specialised object recognition in proximity as the the first few layers of weights recognise the simple features of the heroin and the overall shape is recognised by the later layers. However, the shape of heroin does not have much details and size of is as small as the simple features can be detected by weights in the first layer of the network. To circumvent this, train another stream of FCN specialised for recognising heroin in distance by setting smaller filter sizes and feeding only training data sets with heroin in distance with other various objects and environment. By merging it carefully, actually this is the challenging part to do so and have incepeted the solution yet, the dual stream FCN may be able to recognise obejects both in proximity, and distance.
+\paragraph{More data collection}
+Due to the data deficiency in the provided data, especially the variety of scenes with a hero in distance, a well planned data acquisition is needed as shown in the data collection failure case of run 2.4 and run 2.5. 
+\paragraph{Different Parameters}
+At the end of writing this report, I realised that filter was 32 for all the experiments. I believe this could be one of the reasons why small objects, tiny image of hero in distance, could not be detected as good as the big objects. By increasing this filter size to 32, or even 64, small hero images might be detected better.
+%----------------------------------------------------------------------------------------
+\pagebreak
+\section{Analysis}
+%------------------------------------------------
+\subsection{Advantage of the model}
+With parameters supplied, this model can converge into a reasonable local minima within 1 hour to get the 43\% accuracy detection performance of he test data. This is a light and simple FCN also many rooms to improve too.
+
+\subsection{Limitation of the model}\label{rubric50}
+\paragraph{General purpose?}
+Definately not enough training for many different objects, the training was limited to the object spawned in the simulated area. There is no animals, no cars. To make this recognised, more data sets are required. NVIDIA is conducting such general purpose data collection in \href{https://www.nvidia.com/en-us/deep-learning-ai/industries/ai-cities/}{smart cities} by using cameras installed in many locations in there. In addition, the size of neural network should become larger than this project to classify many more objects and this requires massive cloud system infrastructure to process the collected data.
+Many people trying to make a general purpose classifer, however, only neural network itself might not be a model to do so becuase of its training time, model requirement, and the sensitivity of model to training data. There must be some more components to be added to create the novel generalised classifier.
+\paragraph{Other style of processing}
+Data collection never represents the reality perfectly. The conditions for operation changes with demands, and surroundings. That is a model with a fixed weights cannot adapt such dynamic environment in the realy world and performs well. Instead of setting the weights in a batch methods at once, an online learning is highly recommended, which learns the target and modify the model at operation.
+%----------------------------------------------------------------------------------------
+\newpage
+\section{APPENDIX}\label{appendix}
+
+\subsection{Images}
+Images in this section are only only notable for the output of the weigith but not representing the 
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images23.png} 
+	\caption{following images of run2.3}
+	\label{fig:subfollowing_images23}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}3
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ23.png}
+	\caption{patrol without target of run2.3}
+	\label{fig:subpatrol_non_targ23}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ23.png}
+	\caption{patrol with target of run2.3}
+	\label{fig:subpatrol_with_targ23}
+	\end{subfigure}
+
+	\caption{validation images of run2.3}
+	\label{fig:outputimages23}
+\end{figure}
+
+ \begin{figure}[ht]
+	 \begin{subfigure}{0.33\textwidth}
+	 \includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images24.png} 
+	 \caption{following images of run2.4}
+	 \label{fig:subfollowing_images24}
+	 \end{subfigure}
+	 \begin{subfigure}{0.33\textwidth}
+	 \includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ24.png}
+	 \caption{patrol without target of run2.4}
+	 \label{fig:subpatrol_non_targ24}
+	 \end{subfigure}
+	 \begin{subfigure}{0.33\textwidth}
+	 \includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ24.png}
+	 \caption{patrol with target of run2.4}
+	 \label{fig:subpatrol_with_targ24}
+	 \end{subfigure}
+ 
+	 \caption{validation images of run2.4}
+	 \label{fig:outputimages24}
+ \end{figure}
+
+
+ \begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images25.png} 
+	\caption{following images of run2.5}
+	\label{fig:subfollowing_images25}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ25.png}
+	\caption{patrol without target of run2.5}
+	\label{fig:subpatrol_non_targ25}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ25.png}
+	\caption{patrol with target of run2.5}
+	\label{fig:subpatrol_with_targ25}
+	\end{subfigure}
+
+	\caption{validation images of run2.5}
+	\label{fig:outputimages25}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images26.png} 
+	\caption{following images of run2.6}
+	\label{fig:subfollowing_images26}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ26.png}
+	\caption{patrol without target of run2.6}
+	\label{fig:subpatrol_non_targ26}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ26.png}
+	\caption{patrol with target of run2.6}
+	\label{fig:subpatrol_with_targ26}
+	\end{subfigure}
+
+	\caption{validation images of run2.6}
+	\label{fig:outputimages26}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images3.png} 
+	\caption{following images of run3}
+	\label{fig:subfollowing_images3}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ3.png}
+	\caption{patrol without target of run3}
+	\label{fig:subpatrol_non_targ3}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ3.png}
+	\caption{patrol with target of run3}
+	\label{fig:subpatrol_with_targ3}
+	\end{subfigure}
+
+	\caption{validation images of run3}
+	\label{fig:outputimages3}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images3_1.png} 
+	\caption{following images of run3}
+	\label{fig:subfollowing_images31}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ3_1.png}
+	\caption{patrol without target of run3}
+	\label{fig:subpatrol_non_targ31}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ3_1.png}
+	\caption{patrol with target of run3}
+	\label{fig:subpatrol_with_targ31}
+	\end{subfigure}
+
+	\caption{validation images of run3}
+	\label{fig:outputimages31}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images4.png} 
+	\caption{following images of run4}
+	\label{fig:subfollowing_images4}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ4.png}
+	\caption{patrol without target of run4}
+	\label{fig:subpatrol_non_targ4}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ4.png}
+	\caption{patrol with target of run4}
+	\label{fig:subpatrol_with_targ4}
+	\end{subfigure}
+
+	\caption{validation images of run4}
+	\label{fig:outputimages4}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/following_images4_1.png} 
+	\caption{following images of run41}
+	\label{fig:subfollowing_images41}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_non_targ4_1.png}
+	\caption{patrol without target of run41}
+	\label{fig:subpatrol_non_targ41}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+	\includegraphics[width=0.9\linewidth, height=2cm]{./imgs/patrol_with_targ4_1.png}
+	\caption{patrol with target of run41}
+	\label{fig:subpatrol_with_targ41}
+	\end{subfigure}
+
+	\caption{validation images of run41}
+	\label{fig:outputimages41}
+\end{figure}
+
+\end{document}
+
