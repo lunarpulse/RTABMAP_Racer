@@ -16,3 +16,9 @@ cd ~/catkin_ws
 source devel/setup.bash
 roslaunch racer_bot main.launch
 ```
+
+To get the RTABMSLAM mode running
+```shell
+roslaunch racer_bot main_rtatslam.launch rtabmap_args:="--delete_db_on_start" depth_topic:=/realsense/camera/depth/image_raw rgb_topic:=/realsense/camera/color/image_raw camera_info_topic:=/realsense/camera/color/camera_info odom_topic:=/odom
+```
+
