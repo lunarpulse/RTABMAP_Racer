@@ -104,12 +104,20 @@ This section should discuss the performance of robots in simulation. Items to in
 You should have at least two images here: one that shows your standard robot used in the first part of the project, and a second robot that you modified / built that is different from the first robot. Remember to watermark all of your images as well. 
 
 \subsection{Achievements}
-You should describe what you achieved for localization in the project with the benchmark model and your own model. Includes charts and graphs show how parameters affect your performance. 
+Both model acheived no collision and high speed driving in the circuit.
 
 % Robot Models
 \subsection{Benchmark Model}
 Udacity robot with the same config and parameter was used.
 \subsubsection{Model design}
+\begin{figure}[thpb]
+      \centering
+      \includegraphics[width=\linewidth]{./img/udacity_bot.png}
+      \caption{Personal Model Design as Guided}
+      \label{fig:Basic_Model}
+\end{figure}
+Figure\ref{fig:Basic_Model} shows the difference to the udacitybot.
+
 the layout and used sensors are shown in Table \ref{table:model_design}.
 \begin{table}[ht]
       \caption{Model Design}
@@ -282,6 +290,14 @@ Local Planner parameters on Table \ref{table:base_local_planner_parameters} were
 
 \subsection{Personal Model}
 \subsubsection{Model design}
+\begin{figure}[thpb]
+      \centering
+      \includegraphics[width=\linewidth]{./img/racerbot.png}
+      \caption{Personal Model Design with Realsense D435 mesh}
+      \label{fig:Personal_Model}
+\end{figure}
+Figure\ref{fig:Personal_Model} shows the difference to the udacitybot.
+
 The design of the model is the same as the udacity model. This was intended as offline vehicle for this simulation is sparkfun rebot(Figure \ref{fig:sparkfunredbot}).
 The realsense camera D435 will be mounted on the front and so does the simulation model.
 
@@ -297,17 +313,6 @@ In addition, \verb!RTABMAP_ros! and \verb!realsense_gazebo_plugin! were used for
 \subsubsection{Parameters}
 Basically the same as the normal udacitybot and parameters for rtabmap and realsense were added. They are defaults to the package, nothing was tuned from it. 
 As the map from SLAM was not complete could not attemp to tune it. The tuning can be done more when I learn more about RTABMAP later in this course.
-%example for Bullet point list
-\begin{itemize}
-      \item example 1
-      \item example 2
-      \end {itemize}
-      
-      %example for numbered list
-      \begin{enumerate}
-      \item example 1
-      \item example 2
-      \end{enumerate}
 
 \section{Results}
 Both robot with and without RTABMAP arrives to the goal at same time frame, 30 seconds wall time, without crashing to the wall or corner because it uses the same chassis and the same parameters.
