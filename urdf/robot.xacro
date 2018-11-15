@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 
-<robot name="racer_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find racer_bot)/urdf/realsense-RS200.macro.xacro"/>
+<robot name="slam_project" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find slam_project)/urdf/realsense-RS200.macro.xacro"/>
   <link name="robot_footprint"></link>
 
   <joint name="robot_footprint_joint" type="fixed">
@@ -130,7 +130,7 @@
 		<visual name="hokuyo_visual">
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://racer_bot/meshes/hokuyo.dae"/>
+				<mesh filename="package://slam_project/meshes/hokuyo.dae"/>
 			</geometry>
 		</visual>
 

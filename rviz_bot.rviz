@@ -107,7 +107,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /racer_bot/laser/scan
+      Topic: /slam_project/laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true

@@ -318,7 +318,7 @@ As the map from SLAM was not complete could not attemp to tune it. The tuning ca
 Both robot with and without RTABMAP arrives to the goal at same time frame, 30 seconds wall time, without crashing to the wall or corner because it uses the same chassis and the same parameters.
 m
 \begin{lstlisting}[language={[Sharp]C}, caption={racerbot launch command},label={list:Racerbotlaunch}]
-      roslaunch racer_bot main.launch
+      roslaunch slam_project main.launch
 \end{lstlisting}
 The default racer bot simulation can be launched by the command shown in Listing \ref{list:Racerbotlaunch}.
 Present an unbiased view of your robot's performance and justify your stance with facts. Do the localization results look reasonable? What is the duration for the particle filters to converge? How long does it take for the robot to reach the goal? Does it follow a smooth path to the goal? Does it have unexpected behavior in the process? \\
@@ -354,7 +354,7 @@ In adition, RTABMAP ros package was used to process the data from the depth came
 The entire packages can be run by the shell code below Listing \ref{list:RTABMAPracerbotlaunch}.
 
 \begin{lstlisting}[language={[Sharp]C}, caption={RTABMAP integrated racerbot launch command},label={list:RTABMAPracerbotlaunch}]
-roslaunch racer_bot main_rtatslam.launch
+roslaunch slam_project main_rtatslam.launch
 rtabmap_args:="--delete_db_on_start" 
 depth_topic:=/realsense/camera/depth/image_raw
 rgb_topic:=/realsense/camera/color/image_raw
@@ -362,12 +362,12 @@ camera_info_topic:=/realsense/camera/color/camera_info
       odom_topic:=/odom
 \end{lstlisting}
 
-The result of this command shows in Figure \ref{fig:racer_bot_DepthCloud}.
+The result of this command shows in Figure \ref{fig:slam_project_DepthCloud}.
 \begin{figure}[thpb]
       \centering
-      \includegraphics[width=\linewidth]{./img/racer_bot_DepthCloud.png}
+      \includegraphics[width=\linewidth]{./img/slam_project_DepthCloud.png}
       \caption{Realsense Depth Cloud in front of the robot}
-      \label{fig:racer_bot_DepthCloud}
+      \label{fig:slam_project_DepthCloud}
 \end{figure}
 The Figure \ref{fig:rtabslam_racerbot} entire screen showing Rviz and RTABRviz. The top left is the RTABMAPRviz from RTABMAP package and it shows the result of mapping in its main screen. The bottom left terminal shows many warnings of lack of \verb!odom_info! and not enough keys. As the \verb!odom_info! is not available in the simulation, the accuracy of the mapping is not as great as it supposed to be because the package highly depends on odm info. When it was tested with Realsense D435 camera, it provided fairly accurate maps on the fly with in 1 metre from the object. D435 tends to provide fluctuating surface in a long distance, more than 3 metres.
 
