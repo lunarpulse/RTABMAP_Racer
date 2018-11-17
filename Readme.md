@@ -19,5 +19,21 @@ roslaunch slam_project main.launch
 
 To get the RTABMSLAM mode running
 ```shell
-roslaunch slam_project main_rtatslam.launch rtabmap_args:="--delete_db_on_start" depth_topic:=/realsense/camera/depth/image_raw rgb_topic:=/realsense/camera/color/image_raw camera_info_topic:=/realsense/camera/color/camera_info odom_topic:=/odom
+
+roslaunch slam_project main_rtatslam.launch rtabmap_args:="--delete_db_on_start" rviz:=true
+roslaunch slam_project teleop.launch
+rtabmap-databaseViewer ~/.ros/rtabmap.db
+
+```
+
+
+```shell
+source devel/setup.bash
+
+roslaunch slam_project world.launch
+roslaunch slam_project teleop.launch
+roslaunch slam_project rtabslam.launch rtabmap_args:="--delete_db_on_start"
+roslaunch slam_project rtabviz.launch
+rtabmap-databaseViewer ~/.ros/rtabmap.db
+
 ```

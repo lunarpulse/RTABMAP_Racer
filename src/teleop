@@ -82,7 +82,7 @@ def getKey():
     return key
 
 speed = .2
-turn = 1
+turn = 0.5
 
 def vels(speed,turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
@@ -91,7 +91,7 @@ if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     
     rospy.init_node('teleop')
-    pub = rospy.Publisher('~cmd_vel', Twist, queue_size=5)
+    pub = rospy.Publisher('cmd_vel', Twist, queue_size=5)
 
     x = 0
     th = 0

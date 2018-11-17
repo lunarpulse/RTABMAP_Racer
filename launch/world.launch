@@ -24,6 +24,6 @@
 output="screen" args="-urdf -param robot_description -model racer_bot"/>
 
 <!--launch rviz-->
-<node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
+<!-- <node name="rviz" pkg="rviz" type="rviz" respawn="false"  args="-d $(find slam_project)/launch/config/robot_slam.rviz"/> -->
 
 </launch>
