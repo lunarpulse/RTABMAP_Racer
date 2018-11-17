@@ -37,9 +37,9 @@
     <remap from="depth_registered/image_rect" to="$(arg depReg_imgrect)"/>
     <remap from="depth_registered/points" to="$(arg out_cloud)"/>
   </node>
-
   <arg name="stereo"          default="false"/>
- e
+  <arg name="amcl"          default="false"/>
+  
   <!-- Choose visualization -->
   <arg name="rtabmapviz"              default="true" /> 
   <arg name="rviz"                    default="false" />
@@ -217,7 +217,8 @@
           <remap unless="$(arg rgbd_sync)" from="rgbd_image" to="$(arg rgbd_topic)_relay"/>
           <remap from="odom"                   to="$(arg odom_topic)"/>
           <remap from="imu"                    to="$(arg imu_topic)"/>
-      
+                  <!-- RTAB-Map Output -->
+          <remap from="grid_map" to="/map"/>
           <param name="frame_id"                    type="string" value="$(arg frame_id)"/>
           <param name="odom_frame_id"               type="string" value="$(arg vo_frame_id)"/>
           <param name="ground_truth_frame_id"       type="string" value="$(arg ground_truth_frame_id)"/>
@@ -279,7 +280,8 @@
       <remap from="user_data_async"        to="$(arg user_data_async_topic)"/>
       <remap from="gps/fix"                to="$(arg gps_topic)"/>
       <remap from="odom"                   to="$(arg odom_topic)"/>
-      
+            <!-- RTAB-Map Output -->
+      <remap from="grid_map" to="/map"/>
             <param name="Rtabmap/DetectionRate" type="string" value="1"/> 
 
       <!-- 2D SLAM -->
@@ -343,29 +345,60 @@
       <remap from="scan_cloud"             to="$(arg scan_cloud_topic)"/>
       <remap from="odom"                   to="$(arg odom_topic)"/>
 
-      <!-- RTAB-Map Output -->
-      <remap from="grid_map" to="/map"/>
+
     </node>
   
-  </group>
   
+  </group>
+
+  <!-- Move base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find slam_project)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find slam_project)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find slam_project)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find slam_project)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find slam_project)/config/base_local_planner_params.yaml" command="load" />
+
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+    <remap from="scan" to="$(arg out_cloud)"/>
+
+    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+  </node>
+    <!-- Localization-->
+  <node if="$(arg amcl)" pkg="amcl" type="amcl" name="amcl" output="screen">
+
+    <remap from="scan" to="$(arg out_cloud)"/>
+    
+    <!-- Overall filter parameters -->
+    <param name="min_particles" value="100"/>
+    <param name="max_particles" value="500"/>
+    <param name="update_min_a" value="0.1"/>
+    <param name="update_min_d" value="0.05"/>
+    
+    <param name="transform_tolerance" value="0.3"/>
+    <param name="initial_pose_x" value="0.0"/>
+    <param name="initial_pose_y" value="0.0"/>
+    <param name="initial_pose_a" value="0.0"/>
+
+    <!-- Odometry model parameters -->
+    <param name="odom_alpha1" value="0.005"/>
+    <param name="odom_alpha2" value="0.010"/>
+    <param name="odom_alpha3" value="0.005"/>
+    <param name="odom_alpha4" value="0.005"/>
+
+    <param name="odom_frame_id" value="$(arg odom_topic)"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="$(arg frame_id)"/>
+    <param name="global_frame_id" value="$(arg map_frame_id)"/>
+
+    <!-- Laser model parameters -->
+    <param name="laser_model_type" value="likelihood_field"/>
+
+  </node>
   <!-- Visualization RVIZ -->
   <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_cfg)"/>
-  <node if="$(arg rviz)" pkg="nodelet" type="nodelet" name="points_xyzrgb" args="standalone rtabmap_ros/point_cloud_xyzrgb" output="$(arg output)">
-    <remap if="$(arg stereo)" from="left/image"        to="$(arg left_image_topic_relay)"/>
-    <remap if="$(arg stereo)" from="right/image"       to="$(arg right_image_topic_relay)"/>
-    <remap if="$(arg stereo)" from="left/camera_info"  to="$(arg left_camera_info_topic)"/>
-    <remap if="$(arg stereo)" from="right/camera_info" to="$(arg right_camera_info_topic)"/>
-    <remap unless="$(arg subscribe_rgbd)" from="rgb/image"         to="$(arg rgb_topic_relay)"/>
-    <remap unless="$(arg subscribe_rgbd)" from="depth/image"       to="$(arg depth_topic_relay)"/>
-    <remap unless="$(arg subscribe_rgbd)" from="rgb/camera_info"   to="$(arg camera_info_topic)"/>
-    <remap     if="$(arg rgbd_sync)" from="rgbd_image" to="$(arg rgbd_topic)"/>
-    <remap unless="$(arg rgbd_sync)" from="rgbd_image" to="$(arg rgbd_topic)_relay"/>
-    <remap from="cloud"             to="voxel_cloud" />
-
-    <param name="decimation"  type="double" value="4"/>
-    <param name="voxel_size"  type="double" value="0.0"/>
-    <param name="approx_sync" type="bool"   value="$(arg approx_sync)"/>
-  </node>
+  
 
 </launch>

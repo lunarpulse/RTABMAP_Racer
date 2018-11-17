@@ -32,7 +32,7 @@ source devel/setup.bash
 
 roslaunch slam_project world.launch
 roslaunch slam_project teleop.launch
-roslaunch slam_project rtabslam.launch rtabmap_args:="--delete_db_on_start"
+roslaunch slam_project rtabslam.launch rtabmap_args:="--delete_db_on_start" rtabmapviz:=false rviz:=true amcl:=true
 roslaunch slam_project rtabviz.launch
 rtabmap-databaseViewer ~/.ros/rtabmap.db
 
