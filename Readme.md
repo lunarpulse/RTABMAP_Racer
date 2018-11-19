@@ -9,25 +9,23 @@ catkin_make
 
 ## Usage
 
-`main.launch` contains all the launch sequence without opening multiple terminals.
+### RTABMSLAM Mapping
 
 ```shell
-cd ~/catkin_ws
-source devel/setup.bash
-roslaunch slam_project main.launch
-```
-
-To get the RTABMSLAM mode running
-
-```shell
-
-roslaunch slam_project main_rtatslam.launch rtabmap_args:="--delete_db_on_start" rviz:=true
-roslaunch slam_project teleop.launch
+roslaunch slam_project world.launch
+roslaunch slam_project mapping.launch rtabmap_args:="--delete_db_on_start" rtabmapviz:=false rviz:=true
+roslaunch slam_project teleop
 rtabmap-databaseViewer ~/.ros/rtabmap.db
-
 ```
 
-Debug time
+### RTABMSLAM Localisation
+
+```shell
+roslaunch slam_project world.launch
+roslaunch slam_project mapping.launch rtabmapviz:=false rviz:=true
+```
+
+### Debug time
 
 ```shell
 
