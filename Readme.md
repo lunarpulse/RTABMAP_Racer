@@ -18,6 +18,7 @@ roslaunch slam_project main.launch
 ```
 
 To get the RTABMSLAM mode running
+
 ```shell
 
 roslaunch slam_project main_rtatslam.launch rtabmap_args:="--delete_db_on_start" rviz:=true
@@ -26,8 +27,10 @@ rtabmap-databaseViewer ~/.ros/rtabmap.db
 
 ```
 
+Debug time
 
 ```shell
+
 source devel/setup.bash
 
 roslaunch slam_project world.launch
