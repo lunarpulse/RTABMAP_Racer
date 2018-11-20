@@ -1,4 +1,4 @@
-# Project Racer
+# Project RtabMap Racer
 
 ## Installation
 
